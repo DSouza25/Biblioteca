@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
@@ -18,10 +19,12 @@ import screens.recursos.Cores;
 
 public class MainScreen implements ActionListener{
     // ---------------- declaração de componentes -----------------
-    JPanel telaUsuario = new CadastroUsuario().abrirTelaCadastro();
-    JPanel telaLivro = new CadastroLivro().abrirTelaCadastro();
-    JPanel telaEmprestimo = new Emprestimo().abrirTelaCadastro();
-    JPanel telaRelatorio = new Relatorio().abrirTelaCadastro();
+    JPanel telaUsuario = new CadastroUsuario().abrirTela();
+    JPanel indicador = new JPanel();
+    JPanel telaLivro = new CadastroLivro().abrirTela();
+    JPanel telaEmprestimo = new Emprestimo().abrirTela();
+    JPanel telaRelatorio = new Relatorio().abrirTela();
+    JPanel telaListaUsuarios = new ListarUsuarios().abrirTela();
     Cores cor = new Cores();
     JFrame janela = new JFrame("Biblioteca");
     JPanel conteudo = new JPanel();
@@ -30,15 +33,17 @@ public class MainScreen implements ActionListener{
     JButton btnCadastrarLivro = new JButton("Cadastrar livro");
     JButton btnEmprestar = new JButton("Emprestar livro");
     JButton btnRelatorio = new JButton("Relatorio de usuario");
+    JButton btnListarUsuarios = new JButton("Listar usuarios");
     
     
     
-    public void estilizarBotao(JButton button){
-        button.setBackground(cor.getAzulClaro());
+    public void estilizarBotao(JButton button, Color corFonte, Color corFundo){
+        button.setBackground(corFundo);
         button.setFont(new Font("sans serif", Font.CENTER_BASELINE, 15));
-        button.setForeground(cor.getBranco());
+        button.setForeground(corFonte);
         button.setFocusPainted(false);
         button.addActionListener(this);
+        button.setBorder(null);
         button.addMouseListener(new MouseListener() {
             
             @Override
@@ -63,13 +68,15 @@ public class MainScreen implements ActionListener{
             public void mouseEntered(MouseEvent e) {
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 button.setBorderPainted(false);
-                button.setBackground(cor.getAzulMedio());
+                button.setBackground(cor.getAzulClaro());
+                button.setForeground(cor.getBranco());
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                button.setBackground(cor.getAzulClaro());
+                button.setBackground(corFundo);
+                button.setForeground(corFonte);
             }
             
         });
@@ -80,33 +87,43 @@ public class MainScreen implements ActionListener{
         menu.setBounds(0,0,250,600);
         menu.setBackground(cor.getAzulEscuro());
         
-        btnEmprestar.setBounds(20, 200, 210, 60);
-        btnCadastrarUsuario.setBounds(20, 270, 210, 60);
-        btnCadastrarLivro.setBounds(20, 340, 210, 60);
-        btnRelatorio.setBounds(20, 410, 210, 60);
-        estilizarBotao(btnEmprestar);
-        estilizarBotao(btnCadastrarUsuario);
-        estilizarBotao(btnCadastrarLivro);
-        estilizarBotao(btnRelatorio);
+        btnEmprestar.setBounds(20, 180, 230, 60);
+        btnCadastrarUsuario.setBounds(20, 250, 210, 60);
+        btnCadastrarLivro.setBounds(20, 320, 210, 60);
+        btnRelatorio.setBounds(20, 390, 210, 60);
+        btnListarUsuarios.setBounds(20, 460, 210, 60);
+        estilizarBotao(btnEmprestar, cor.getAzulEscuro(), cor.getBranco());
+        estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+        estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+        estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+        estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
         
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/screens/recursos/images/icone.png"));
         Image icone = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon iconeRedimensionado = new ImageIcon(icone);
         JLabel btnIcon = new JLabel(iconeRedimensionado);
-        btnIcon.setBounds(75,70,100,100);
+        btnIcon.setBounds(75,40,100,100);
         btnIcon.setBackground(cor.getAzulMedio());
 
-        telaEmprestimo.setVisible(false);
+        telaEmprestimo.setVisible(true);
         telaUsuario.setVisible(false);
         telaLivro.setVisible(false);
         telaRelatorio.setVisible(false);
+        telaListaUsuarios.setVisible(false);
+
+        indicador.setBackground(cor.getAzulClaro());
+        indicador.setBounds(230, 180, 20, 60);
+        indicador.setVisible(false);
 
         // --------------- adicionar à janela --------------------
+        janela.add(indicador);
+        janela.add(telaListaUsuarios);
         janela.add(telaUsuario);
         janela.add(telaLivro);
         janela.add(telaRelatorio);
         janela.add(telaEmprestimo);
         janela.add(btnIcon);
+        janela.add(btnListarUsuarios);
         janela.add(btnEmprestar);
         janela.add(btnCadastrarUsuario);
         janela.add(btnCadastrarLivro);
@@ -114,6 +131,7 @@ public class MainScreen implements ActionListener{
         janela.add(menu);
         janela.add(conteudo);
         janela.setSize(900,600);
+        janela.setResizable(false);
         janela.setLocationRelativeTo(null);
         janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         janela.setVisible(true);
@@ -126,24 +144,98 @@ public class MainScreen implements ActionListener{
             telaUsuario.setVisible(false);
             telaLivro.setVisible(false);
             telaRelatorio.setVisible(false);
+            telaListaUsuarios.setVisible(false);
+
+            btnEmprestar.setBounds(20, 180, 230, 60);
+            btnCadastrarUsuario.setBounds(20, 250, 210, 60);
+            btnCadastrarLivro.setBounds(20, 320, 210, 60);
+            btnRelatorio.setBounds(20, 390, 210, 60);
+            btnListarUsuarios.setBounds(20, 460, 210, 60);
+
+            estilizarBotao(btnEmprestar, cor.getAzulEscuro(), cor.getBranco());
+            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+
         }
         if (e.getSource() == btnCadastrarUsuario) {
             telaEmprestimo.setVisible(false);
             telaUsuario.setVisible(true);
             telaLivro.setVisible(false);
             telaRelatorio.setVisible(false);
+            telaListaUsuarios.setVisible(false);
+
+            btnEmprestar.setBounds(20, 180, 210, 60);
+            btnCadastrarUsuario.setBounds(20, 250, 230, 60);
+            btnCadastrarLivro.setBounds(20, 320, 210, 60);
+            btnRelatorio.setBounds(20, 390, 210, 60);
+            btnListarUsuarios.setBounds(20, 460, 210, 60);
+
+            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarUsuario, cor.getAzulEscuro(), cor.getBranco());
+            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+
         }
         if (e.getSource() == btnCadastrarLivro) {
             telaEmprestimo.setVisible(false);
             telaUsuario.setVisible(false);
             telaLivro.setVisible(true);
             telaRelatorio.setVisible(false);
+            telaListaUsuarios.setVisible(false);
+
+            btnEmprestar.setBounds(20, 180, 210, 60);
+            btnCadastrarUsuario.setBounds(20, 250, 210, 60);
+            btnCadastrarLivro.setBounds(20, 320, 230, 60);
+            btnRelatorio.setBounds(20, 390, 210, 60);
+            btnListarUsuarios.setBounds(20, 460, 210, 60);
+
+            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarLivro, cor.getAzulEscuro(), cor.getBranco());
+            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+
         }
         if (e.getSource() == btnRelatorio) {
             telaEmprestimo.setVisible(false);
             telaUsuario.setVisible(false);
             telaLivro.setVisible(false);
             telaRelatorio.setVisible(true);
+            telaListaUsuarios.setVisible(false);
+
+            btnEmprestar.setBounds(20, 180, 210, 60);
+            btnCadastrarUsuario.setBounds(20, 250, 210, 60);
+            btnCadastrarLivro.setBounds(20, 320, 210, 60);
+            btnRelatorio.setBounds(20, 390, 230, 60);
+            btnListarUsuarios.setBounds(20, 460, 210, 60);
+
+            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnRelatorio, cor.getAzulEscuro(), cor.getBranco());
+            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+        }
+        if (e.getSource() == btnListarUsuarios) {
+            telaEmprestimo.setVisible(false);
+            telaUsuario.setVisible(false);
+            telaLivro.setVisible(false);
+            telaRelatorio.setVisible(false);
+            telaListaUsuarios.setVisible(true);
+
+            btnEmprestar.setBounds(20, 180, 210, 60);
+            btnCadastrarUsuario.setBounds(20, 250, 210, 60);
+            btnCadastrarLivro.setBounds(20, 320, 210, 60);
+            btnRelatorio.setBounds(20, 390, 210, 60);
+            btnListarUsuarios.setBounds(20, 460, 230, 60);
+
+            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnListarUsuarios, cor.getAzulEscuro(), cor.getBranco());
         }
     }
 }
