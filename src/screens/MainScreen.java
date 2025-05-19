@@ -34,6 +34,7 @@ public class MainScreen implements ActionListener{
     JButton btnEmprestar = new JButton("Emprestar livro");
     JButton btnRelatorio = new JButton("Relatorio de usuario");
     JButton btnListarUsuarios = new JButton("Listar usuarios");
+    Integer btnFocus = 1;
     
     
     
@@ -48,20 +49,17 @@ public class MainScreen implements ActionListener{
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+                
             }
             
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+                
             }
             
             @Override
             public void mouseReleased(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+                
             }
             
             @Override
@@ -151,12 +149,25 @@ public class MainScreen implements ActionListener{
             btnCadastrarLivro.setBounds(20, 320, 210, 60);
             btnRelatorio.setBounds(20, 390, 210, 60);
             btnListarUsuarios.setBounds(20, 460, 210, 60);
-
             estilizarBotao(btnEmprestar, cor.getAzulEscuro(), cor.getBranco());
-            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+
+            switch (btnFocus) {
+                case 2:
+                    estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 3:
+                    estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 4:
+                    estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 5:
+                    estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());                
+                    break;
+                default:
+                    break;
+            }
+            btnFocus = 1;
 
         }
         if (e.getSource() == btnCadastrarUsuario) {
@@ -171,12 +182,24 @@ public class MainScreen implements ActionListener{
             btnCadastrarLivro.setBounds(20, 320, 210, 60);
             btnRelatorio.setBounds(20, 390, 210, 60);
             btnListarUsuarios.setBounds(20, 460, 210, 60);
-
-            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
             estilizarBotao(btnCadastrarUsuario, cor.getAzulEscuro(), cor.getBranco());
-            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+            switch (btnFocus) {
+                case 1:
+                    estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 3:
+                    estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 4:
+                    estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 5:
+                    estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());                
+                    break;
+                default:
+                    break;
+            }
+            btnFocus = 2;
 
         }
         if (e.getSource() == btnCadastrarLivro) {
@@ -192,11 +215,25 @@ public class MainScreen implements ActionListener{
             btnRelatorio.setBounds(20, 390, 210, 60);
             btnListarUsuarios.setBounds(20, 460, 210, 60);
 
-            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
             estilizarBotao(btnCadastrarLivro, cor.getAzulEscuro(), cor.getBranco());
-            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+            switch (btnFocus) {
+                case 2:
+                    estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 1:
+                    estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 4:
+                    estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 5:
+                    estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());                
+                    break;
+                default:
+                    break;
+            }
+            btnFocus = 3;
+            
 
         }
         if (e.getSource() == btnRelatorio) {
@@ -212,11 +249,25 @@ public class MainScreen implements ActionListener{
             btnRelatorio.setBounds(20, 390, 230, 60);
             btnListarUsuarios.setBounds(20, 460, 210, 60);
 
-            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
             estilizarBotao(btnRelatorio, cor.getAzulEscuro(), cor.getBranco());
-            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+            switch (btnFocus) {
+                case 2:
+                    estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 3:
+                    estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 1:
+                    estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 5:
+                    estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());                
+                    break;
+                default:
+                    break;
+            }
+            btnFocus = 4;
+            
         }
         if (e.getSource() == btnListarUsuarios) {
             telaEmprestimo.setVisible(false);
@@ -230,12 +281,25 @@ public class MainScreen implements ActionListener{
             btnCadastrarLivro.setBounds(20, 320, 210, 60);
             btnRelatorio.setBounds(20, 390, 210, 60);
             btnListarUsuarios.setBounds(20, 460, 230, 60);
+            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
 
-            estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
-            estilizarBotao(btnListarUsuarios, cor.getAzulEscuro(), cor.getBranco());
+            switch (btnFocus) {
+                case 2:
+                    estilizarBotao(btnCadastrarUsuario, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 3:
+                    estilizarBotao(btnCadastrarLivro, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 4:
+                    estilizarBotao(btnRelatorio, cor.getBranco(), cor.getAzulMedio());
+                    break;
+                case 1:
+                    estilizarBotao(btnEmprestar, cor.getBranco(), cor.getAzulMedio());                
+                    break;
+                default:
+                    break;
+            }
+            btnFocus = 5;
         }
     }
 }
