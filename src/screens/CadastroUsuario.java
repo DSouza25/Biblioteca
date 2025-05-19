@@ -4,12 +4,18 @@ package screens;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.UUID;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -18,7 +24,7 @@ import javax.swing.border.EmptyBorder;
 
 import screens.recursos.Cores;
 
-public class CadastroUsuario {
+public class CadastroUsuario implements ActionListener{
     JPanel painelCadastro = new JPanel();
 
     Cores cor = new Cores();
@@ -70,6 +76,7 @@ public class CadastroUsuario {
         txtMatricula.setBounds(80, 306, 450, 30);
         txtMatricula.setEditable(false);
         txtMatricula.setFocusable(false);
+        txtMatricula.setForeground(Color.GRAY);
         configuraBorda(txtMatricula);
 
         btnCadastrar.setBounds(200, 386, 200, 50);
@@ -78,6 +85,7 @@ public class CadastroUsuario {
         btnCadastrar.setForeground(cor.getBranco());
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(this);
         btnCadastrar.addMouseListener( new MouseListener() {
 
             @Override
@@ -122,5 +130,31 @@ public class CadastroUsuario {
         painelCadastro.setBackground(cor.getBranco());
 
         return painelCadastro;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnCadastrar) {
+            if (txtNascimento.getText().equals("")||txtNome.getText().equals("")||txtEmail.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Deixa de ser maluco e preenche todos os campos");
+            }else{
+                String matricula = UUID.randomUUID().toString().substring(0,10);
+                txtMatricula.setText(matricula);
+                try(BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.csv", true))){
+                    writer.write(txtNome.getText() + "," + txtEmail.getText() + "," + txtNascimento.getText() + "," + matricula);
+                    writer.newLine();
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+                }
+                catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
+                finally{
+                    txtNome.setText("");
+                    txtEmail.setText("");
+                    txtNascimento.setText("");
+                    txtMatricula.setText("");
+                }
+            }
+        }
     }
 }

@@ -281,7 +281,7 @@ public class MainScreen implements ActionListener{
             btnCadastrarLivro.setBounds(20, 320, 210, 60);
             btnRelatorio.setBounds(20, 390, 210, 60);
             btnListarUsuarios.setBounds(20, 460, 230, 60);
-            estilizarBotao(btnListarUsuarios, cor.getBranco(), cor.getAzulMedio());
+            estilizarBotao(btnListarUsuarios, cor.getAzulEscuro(), cor.getBranco());
 
             switch (btnFocus) {
                 case 2:
